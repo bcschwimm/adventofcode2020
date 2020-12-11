@@ -1,62 +1,21 @@
 from collections import defaultdict
-from itertools import tee
-
+from itertools import combinations
 
 with open('input.txt', 'r') as f:
     data = f.read().strip()
 
 
-def dataPrep(mydata: list) -> list:
-    """
-    converting to int, sorting and appending 
-    our 0 starting volt value and 
-    max volt value (max + 3) to our list
-    """
-    mylist = data.split()
-    mylist = [int(elm) for elm in mylist]
+with open('sample.txt', 'r') as f:
+    sample = f.read().strip()
 
-    volt = int(max(mylist)) + 3
-    start = 0
+sample_list = sample.split()
+sample_list = [int(sample) for sample in sample_list]
 
-    mylist.extend([volt, start])
-    mylist.sort()
+volt = int(max(sample_list)) + 3
 
-    return mylist
+d = defaultdict(int)
 
+for val in sample_list:
+    d[volt - int(val)] += 1
 
-def differences(data: list) -> list:
-    """
-    turns your list into two iterables, 
-    moves index up for one list and 
-    returns the differences between each element
-    """
-    differences = []
-    iterable, copy = tee(data)
-    next(copy) # adjusts copy of my iterable up 1 element
-    for x, y in zip(iterable, copy):
-        differences.append(abs(x - y))
-
-    return differences
-
-
-def dictCount(aList: list) -> dict:
-    """
-    takes a list and returns the count of each
-    value in that list via defaultdict
-    """
-    d = defaultdict(int)
-    for elm in aList:
-        d[elm] += 1
-
-    return d
-
-
-# part 1
-cleanList = dataPrep(data)
-difference = differences(cleanList)
-counts = dictCount(difference)
-print(counts[1] * counts[3])
-
-
-
-
+print(d)
