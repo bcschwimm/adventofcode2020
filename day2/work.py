@@ -7,17 +7,11 @@ with open('input.txt', 'r') as f:
 
 count_list = []
 
-# print(data[0].split()[1][0])
-
 for i in range(len(data)):
     count_list.append(data[i].split()[-1].count(data[i].split()[1][0]))
 
 
 counter = 0
-
-# print(data[0].split()[0].split('-')[0])
-# print(data[0].split()[0].split('-')[-1])
-
 
 for i, val in enumerate(count_list):
     if int(data[i].split()[0].split('-')[0]) <= int(val) and int(val) <= int(data[i].split()[0].split('-')[-1]):
@@ -26,8 +20,6 @@ for i, val in enumerate(count_list):
 print(counter)
 
 clean_data = [item.strip() for item in data]
-
-print(clean_data[0].split(':')[-1].strip())
 
 second_counter = 0
 
